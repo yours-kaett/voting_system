@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 12, 2023 at 08:52 AM
+-- Generation Time: Nov 12, 2023 at 09:40 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `tbl_candidates` (
   `created_at` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `candidate_position` (`candidate_position`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_candidates`
@@ -215,7 +215,7 @@ CREATE TABLE IF NOT EXISTS `tbl_teacher` (
 --
 
 INSERT INTO `tbl_teacher` (`id`, `email`, `username`, `password`, `img_name`, `firstname`, `middlename`, `lastname`) VALUES
-(1, 'sample@sample.com', '54321', '01cfcd4f6b8770febfb40cb906715822', 'default.jpg', 'no_firstname', 'no_middlename', 'no_lastname');
+(1, 'sample@sample.com', '54321', '01cfcd4f6b8770febfb40cb906715822', 'default.jpg', 'Test', 'Only', 'Here');
 
 -- --------------------------------------------------------
 
