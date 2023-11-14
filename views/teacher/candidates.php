@@ -31,11 +31,47 @@ if ($_SESSION['username']) {
             </div>
 
             <?php
+            if (isset($_GET['invalid_size'])) {
+            ?>
+                <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center justify-content-center mb-4" role="alert">
+                    <div>
+                        <?php echo $_GET['invalid_size'], "There's a file which has a large size. Try to upload 100MB below."; ?>
+                        <a href="candidates.php">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </a>
+                    </div>
+                </div>
+            <?php
+            }
+            if (isset($_GET['invalid_format'])) {
+            ?>
+                <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center justify-content-center mb-4" role="alert">
+                    <div>
+                        <?php echo $_GET['invalid_format'], "There's a file which it's not an image format."; ?>
+                        <a href="candidates.php">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </a>
+                    </div>
+                </div>
+            <?php
+            }
+            if (isset($_GET['unknown_error'])) {
+            ?>
+                <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center justify-content-center mb-4" role="alert">
+                    <div>
+                        <?php echo $_GET['unknown_error'], "Unknown error occured."; ?>
+                        <a href="candidates.php">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </a>
+                    </div>
+                </div>
+            <?php
+            }
             if (isset($_GET['success'])) {
             ?>
                 <div class="alert alert-success alert-dismissible fade show d-flex align-items-center justify-content-center mb-4" role="alert">
                     <div>
-                        <?php echo $_GET['success'], "Candidate(s) has been saved successfully."; ?>
+                        <?php echo $_GET['success'], "New candidate(s) has been saved successfully."; ?>
                         <a href="candidates.php">
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </a>
@@ -50,7 +86,7 @@ if ($_SESSION['username']) {
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="candidates-check.php" method="POST">
+                                <form action="candidates-check.php" method="POST" enctype="multipart/form-data">
                                     <div id="rows-container"></div>
                                     <div class="d-flex align-items-center justify-content-start mt-3">
                                         <button class="btn btn-primary" id="addRow" type="button">
@@ -135,6 +171,7 @@ if ($_SESSION['username']) {
                         <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
                             <div class="form-floating">
                                 <select name="candidate_position_${rowCounter}" id="candidate_position" placeholder="Candidate Position" class="form-select" id="candidate_position" required>
+                                    <option disabled selected>-select-</option>
                                 <?php
                                 $stmt = $conn->prepare(' SELECT * FROM tbl_position ');
                                 $stmt->execute();
@@ -153,7 +190,7 @@ if ($_SESSION['username']) {
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 mt-2 mb-2">
                             <div class="form-floating">
-                                <input type="file" name="img_name_${rowCounter}" id="img_name" placeholder="Image" class="form-control" id="img_name" >
+                                <input type="file" name="img_name_${rowCounter}" id="img_name" placeholder="Image" class="form-control" required >
                                 <label for="img_name">Image</label>
                             </div>
                         </div>

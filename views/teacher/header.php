@@ -15,7 +15,7 @@ $img_name = $row['img_name'];
     <div class="d-flex align-items-center justify-content-between">
         <a href="index.html" class="logo d-flex align-items-center">
             <img src="../../assets/img/logo.png" alt="">
-            <span>&nbsp; Voting System</span>
+            <span>&nbsp;VS-SSLG-ENHS</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div>
@@ -29,7 +29,7 @@ $img_name = $row['img_name'];
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
                         <h6><?php echo $firstname . " " . $middlename . " " . $lastname ?></h6>
-                        <span>Admin</span>
+                        <span>Teacher</span>
                     </li>
                     <li>
                         <hr class="dropdown-divider">
