@@ -1,7 +1,11 @@
 <?php
 include '../../config.php';
 session_start();
-if ($_SESSION['username']) {
+if ($_SESSION['id']) {
+  $stmt = $conn->prepare(' SELECT * FROM tbl_student ');
+  $stmt->execute();
+  $all_result = $stmt->get_result();
+  $all_student = mysqli_num_rows($all_result);
 ?>
   <!DOCTYPE html>
   <html lang="en">
@@ -31,188 +35,237 @@ if ($_SESSION['username']) {
       </div>
 
       <section class="section dashboard">
+
+        <div class="row">
+
+          <div class="col-xl-4 col-md-4">
+            <div class="card info-card customers-card">
+              <div class="card-body">
+                <h5 class="card-title">Undone with Voting</h5>
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-people"></i>
+                  </div>
+                  <div class="ps-3">
+                    <?php
+                    $undone = 1;
+                    $stmt = $conn->prepare(' SELECT * FROM tbl_student WHERE vote_status = ?');
+                    $stmt->bind_param('i', $undone);
+                    $stmt->execute();
+                    $undone_result = $stmt->get_result();
+                    $undone_vote = mysqli_num_rows($undone_result);
+                    $undone_percent = $all_student / 1 * $undone_vote;
+                    ?>
+                    <h6><?php echo $undone_vote ?></h6>
+                    <span class="text-danger small pt-1 fw-bold"><?php echo $undone_percent ?>%</span> <span class="text-muted small pt-2 ps-1">covered</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-4 col-md-4">
+            <div class="card info-card revenue-card">
+              <div class="card-body">
+                <h5 class="card-title">Done with Voting</h5>
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-people"></i>
+                  </div>
+                  <div class="ps-3">
+                    <?php
+                    $done = 2;
+                    $stmt = $conn->prepare(' SELECT * FROM tbl_student WHERE vote_status = ?');
+                    $stmt->bind_param('i', $done);
+                    $stmt->execute();
+                    $done_result = $stmt->get_result();
+                    $done_vote = mysqli_num_rows($done_result);
+                    $done_percent = $all_student / 1 * $done_vote;
+                    ?>
+                    <h6><?php echo $done_vote ?></h6>
+                    <span class="text-success small pt-1 fw-bold"><?php echo $done_percent ?>%</span> <span class="text-muted small pt-2 ps-1">covered</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-4 col-md-4">
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <h5 class="card-title">All Students</h5>
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-people"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6><?php echo $all_student ?></h6>
+                    <span class="text-success small pt-1 fw-bold">100%</span> <span class="text-muted small pt-2 ps-1">overall</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-xl-4 col-md-4">
+            <div class="card info-card customers-card">
+              <div class="card-body">
+                <h5 class="card-title">Gender Analysis</h5>
+                <div class="d-flex align-items-center">
+                  <?php
+                  $stmt = $conn->prepare('SELECT 
+                  tbl_gender.gender, 
+                  COUNT(*) as count 
+                  FROM tbl_student 
+                  INNER JOIN tbl_gender ON tbl_student.gender = tbl_gender.id
+                  GROUP BY tbl_student.gender');
+                  $stmt->execute();
+                  $result = $stmt->get_result();
+
+                  $label_gender = [];
+                  $gender = [];
+
+                  while ($row = $result->fetch_assoc()) {
+                    $label_gender[] = $row['gender'];
+                    $gender[] = $row['count'];
+                  }
+                  ?>
+                  <canvas id="gender_chart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-4 col-md-4">
+            <div class="card info-card revenue-card">
+              <div class="card-body">
+                <h5 class="card-title">Grade Level Analysis</h5>
+                <div class="d-flex align-items-center">
+                  <?php
+                  $stmt = $conn->prepare('SELECT 
+                  tbl_grade_level.grade_level, 
+                  COUNT(*) as count 
+                  FROM tbl_student 
+                  INNER JOIN tbl_grade_level ON tbl_student.grade_level = tbl_grade_level.id
+                  GROUP BY tbl_student.grade_level');
+                  $stmt->execute();
+                  $result = $stmt->get_result();
+
+                  $label_grade_level = [];
+                  $grade_level = [];
+
+                  while ($row = $result->fetch_assoc()) {
+                    $label_grade_level[] = $row['grade_level'];
+                    $grade_level[] = $row['count'];
+                  }
+                  ?>
+                  <canvas id="grade_level_chart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-4 col-md-4">
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <h5 class="card-title">Class Section Analysis</h5>
+                <div class="d-flex align-items-center">
+                  <?php
+                  $stmt = $conn->prepare('SELECT 
+                  tbl_section.section, 
+                  COUNT(*) as count 
+                  FROM tbl_student 
+                  INNER JOIN tbl_section ON tbl_student.section = tbl_section.id
+                  GROUP BY tbl_student.section');
+                  $stmt->execute();
+                  $result = $stmt->get_result();
+
+                  $label_section = [];
+                  $section = [];
+
+                  while ($row = $result->fetch_assoc()) {
+                    $label_section[] = $row['section'];
+                    $section[] = $row['count'];
+                  }
+                  ?>
+                  <canvas id="section_chart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
         <div class="row">
           <div class="col-lg-12">
-            <div class="row">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Voting Coverage</h5>
+                <?php
+                $stmt = $conn->prepare('SELECT 
+                tbl_candidates.candidate_name,
+                tbl_position.position,
+                tbl_candidates.candidate_position,
+                tbl_candidates.votes
+                FROM tbl_candidates 
+                INNER JOIN tbl_position ON tbl_candidates.candidate_position = tbl_position.id
+                GROUP BY tbl_candidates.candidate_position');
+                $stmt->execute();
+                $candidates_result = $stmt->get_result();
+                while ($candidates_row = $candidates_result->fetch_assoc()) {
+                  echo '<div class="table-responsive">';
+                  echo '<table class="table table-bordered">';
+                  echo '<thead>';
+                  echo '<tr>';
+                  echo '<th scope="col">' . $candidates_row['position'] . '</th>';
+                  echo '<th scope="col">Votes</th>';
+                  echo '</tr>';
+                  echo '</thead>';
+                  echo '<tbody>';
 
-              <div class="col-xl-4 col-md-4">
-                <div class="card info-card customers-card">
-                  <div class="card-body">
-                    <h5 class="card-title">Undone with Voting</h5>
-                    <div class="d-flex align-items-center">
-                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                        <i class="bi bi-people"></i>
-                      </div>
-                      <div class="ps-3">
-                        <h6>400</h6>
-                        <span class="text-danger small pt-1 fw-bold">40%</span> <span class="text-muted small pt-2 ps-1">covered</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                  $candidate_position = $candidates_row['candidate_position'];
+                  $stmt2 = $conn->prepare('SELECT * FROM tbl_candidates WHERE candidate_position = ?');
+                  $stmt2->bind_param('i', $candidate_position);
+                  $stmt2->execute();
+                  $name_result = $stmt2->get_result();
 
-              <div class="col-xl-4 col-md-4">
-                <div class="card info-card revenue-card">
-                  <div class="card-body">
-                    <h5 class="card-title">Done with Voting</h5>
-                    <div class="d-flex align-items-center">
-                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                        <i class="bi bi-people"></i>
-                      </div>
-                      <div class="ps-3">
-                        <h6>600</h6>
-                        <span class="text-success small pt-1 fw-bold">60%</span> <span class="text-muted small pt-2 ps-1">covered</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                  $maxVotes = 0;
+                  $maxVotesCandidate = '';
 
-              <div class="col-xl-4 col-md-4">
-                <div class="card info-card sales-card">
-                  <div class="card-body">
-                    <h5 class="card-title">All Students</h5>
-                    <div class="d-flex align-items-center">
-                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                        <i class="bi bi-people"></i>
-                      </div>
-                      <div class="ps-3">
-                        <h6>1, 000</h6>
-                        <span class="text-success small pt-1 fw-bold">100%</span> <span class="text-muted small pt-2 ps-1">overall</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- <div class="col-lg-12">
-                <div class="card">
-                  <div class="filter">
-                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                      <li class="dropdown-header text-start">
-                        <h6>Filter</h6>
-                      </li>
-                      <li><a class="dropdown-item" href="#">Today</a></li>
-                      <li><a class="dropdown-item" href="#">This Month</a></li>
-                      <li><a class="dropdown-item" href="#">This Year</a></li>
-                    </ul>
-                  </div>
-                  <div class="card-body">
-                    <h5 class="card-title">Reports <span>/ Today</span></h5>
-                    <div id="reportsChart"></div>
-                    <script>
-                      document.addEventListener("DOMContentLoaded", () => {
-                        new ApexCharts(document.querySelector("#reportsChart"), {
-                          series: [{
-                            name: 'All',
-                            data: [15, 11, 32, 18, 9, 24, 11],
-                          }, {
-                            name: 'Done',
-                            data: [11, 32, 45, 32, 34, 52, 41]
-                          }, {
-                            name: 'Undone',
-                            data: [31, 40, 28, 51, 42, 82, 56]
-                          }],
-                          chart: {
-                            height: 350,
-                            type: 'area',
-                            toolbar: {
-                              show: false
-                            },
-                          },
-                          markers: {
-                            size: 4
-                          },
-                          colors: ['#4154f1', '#2eca6a', '#ff771d'],
-                          fill: {
-                            type: "gradient",
-                            gradient: {
-                              shadeIntensity: 1,
-                              opacityFrom: 0.3,
-                              opacityTo: 0.4,
-                              stops: [0, 90, 100]
-                            }
-                          },
-                          dataLabels: {
-                            enabled: false
-                          },
-                          stroke: {
-                            curve: 'smooth',
-                            width: 2
-                          },
-                          xaxis: {
-                            type: 'datetime',
-                            categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-                          },
-                          tooltip: {
-                            x: {
-                              format: 'dd/MM/yy HH:mm'
-                            },
-                          }
-                        }).render();
-                      });
-                    </script>
-                  </div>
-                </div>
-              </div> -->
-
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Voting Coverage</h5>
-                    <?php
-                    $stmt = $conn->prepare('SELECT 
-                    tbl_candidates.candidate_name,
-                    tbl_position.position,
-                    tbl_candidates.candidate_position,
-                    tbl_candidates.votes
-                    FROM tbl_candidates 
-                    INNER JOIN tbl_position ON tbl_candidates.candidate_position = tbl_position.id
-                    GROUP BY tbl_candidates.candidate_position');
-                    $stmt->execute();
-                    $candidates_result = $stmt->get_result();
-
-                    while ($candidates_row = $candidates_result->fetch_assoc()) {
-                      echo '<div class="table-responsive">';
-                      echo '<table class="table table-bordered">';
-                      echo '<thead>';
-                      echo '<tr>';
-                      echo '<th scope="col">' . $candidates_row['position'] . '</th>';
-                      echo '<th scope="col">Votes</th>';
-                      echo '</tr>';
-                      echo '</thead>';
-                      echo '<tbody>';
-
-                      $candidate_position = $candidates_row['candidate_position'];
-                      $stmt2 = $conn->prepare('SELECT * FROM tbl_candidates WHERE candidate_position = ?');
-                      $stmt2->bind_param('i', $candidate_position);
-                      $stmt2->execute();
-                      $name_result = $stmt2->get_result();
-
-                      while ($name_row = $name_result->fetch_assoc()) {
-                        echo '<tr>';
-                        echo '<td>' . $name_row['candidate_name'] . '</td>';
-                        echo '<td>' . $name_row['votes'] . '</td>';
-                        echo '</tr>';
-                      }
-
-                      echo '</tbody>';
-                      echo '</table>';
-                      echo '</div>';
-                      echo '<div class="mb-3"></div>';
+                  while ($name_row = $name_result->fetch_assoc()) {
+                    echo '<tr';
+                    if ($name_row['votes'] == $maxVotes) {
+                      echo ' class="fw-bold"';
                     }
+                    echo '>';
+                    echo '<td>' . $name_row['candidate_name'] . '</td>';
+                    echo '<td>' . $name_row['votes'] . '</td>';
+                    echo '</tr>';
 
-                    ?>
+                    // Update maxVotes and maxVotesCandidate if needed
+                    if ($name_row['votes'] > $maxVotes) {
+                      $maxVotes = $name_row['votes'];
+                      $maxVotesCandidate = $name_row['candidate_name'];
+                    }
+                  }
 
-                  </div>
-                </div>
+                  echo '</tbody>';
+                  echo '</table>';
+                  echo '</div>';
+                  echo '<div class="mb-3">Highest Votes: <span class="text-success fw-bold">' . $maxVotesCandidate . ' (' . $maxVotes . ' votes)</span></div>';
+                  echo '<hr class="mb-5">';
+                }
+                ?>
+
+
               </div>
-
             </div>
           </div>
         </div>
+
       </section>
 
     </main>
@@ -221,6 +274,93 @@ if ($_SESSION['username']) {
 
     <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../../assets/js/main.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script type="text/javascript">
+      var ctx = document.getElementById("gender_chart").getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: <?php echo json_encode($label_gender); ?>,
+          datasets: [{
+            backgroundColor: [
+              "#5969ff",
+              "#ff407b",
+              "#25d5f2"
+            ],
+            data: <?php echo json_encode($gender); ?>,
+          }]
+        },
+        options: {
+          legend: {
+            display: true,
+            position: 'top',
+            labels: {
+              fontColor: '#71748d',
+              fontFamily: 'sans-serif',
+              fontSize: 11,
+            }
+          },
+        }
+      });
+    </script>
+
+    <script type="text/javascript">
+      var ctx = document.getElementById("grade_level_chart").getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: <?php echo json_encode($label_grade_level); ?>,
+          datasets: [{
+            backgroundColor: [
+              "#5969ff",
+              "#ff407b",
+              "#25d5f2"
+            ],
+            data: <?php echo json_encode($grade_level); ?>,
+          }]
+        },
+        options: {
+          legend: {
+            display: true,
+            position: 'top',
+            labels: {
+              fontColor: '#71748d',
+              fontFamily: 'sans-serif',
+              fontSize: 11,
+            }
+          },
+        }
+      });
+    </script>
+
+    <script type="text/javascript">
+      var ctx = document.getElementById("section_chart").getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'polarArea',
+        data: {
+          labels: <?php echo json_encode($label_section); ?>,
+          datasets: [{
+            backgroundColor: [
+              "#5969ff",
+              "#ff407b",
+              "#25d5f2"
+            ],
+            data: <?php echo json_encode($section); ?>,
+          }]
+        },
+        options: {
+          legend: {
+            display: true,
+            position: 'top',
+            labels: {
+              fontColor: '#71748d',
+              fontFamily: 'sans-serif',
+              fontSize: 11,
+            }
+          },
+        }
+      });
+    </script>
 
   </body>
 
