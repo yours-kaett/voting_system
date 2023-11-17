@@ -260,7 +260,6 @@ if ($_SESSION['id']) {
                 }
                 ?>
 
-
               </div>
             </div>
           </div>
