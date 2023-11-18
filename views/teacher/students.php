@@ -1,7 +1,7 @@
 <?php
 include '../../config.php';
 session_start();
-if ($_SESSION['username']) {
+if ($_SESSION['id']) {
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -81,6 +81,7 @@ if ($_SESSION['username']) {
                                                 <th>Grade Level</th>
                                                 <th>Section</th>
                                                 <th>Voting Status</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -105,6 +106,17 @@ if ($_SESSION['username']) {
                                                         <td>' . $row['grade_level'] . '</td>
                                                         <td>' . $row['section'] . '</td>
                                                         <td>' . $row['vote_status'] . '</td>
+                                                        <td class="text-center">
+                                                            <a href="">
+                                                                <button class="btn btn-primary">
+                                                                    <i class="bi bi-pencil-square"></i>                                                               </button>
+                                                            </a>
+                                                            <a href="">
+                                                                <button class="btn btn-danger">
+                                                                    <i class="bi bi-trash"></i>
+                                                                </button>
+                                                            </a>
+                                                        </td>
                                                     </tr>';
                                             }
                                             ?>
@@ -168,7 +180,7 @@ if ($_SESSION['username']) {
                                 }
                                 ?>
                                 </select>
-                                <label for="gender">Candidate Position</label>
+                                <label for="gender">Gender</label>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
@@ -188,7 +200,7 @@ if ($_SESSION['username']) {
                                 }
                                 ?>
                                 </select>
-                                <label for="grade_level">Candidate Position</label>
+                                <label for="grade_level">Grade Level</label>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
@@ -208,7 +220,7 @@ if ($_SESSION['username']) {
                                 }
                                 ?>
                                 </select>
-                                <label for="section">Candidate Position</label>
+                                <label for="section">Section</label>
                             </div>
                         </div>
                         <hr class="mt-2 mb-0">
