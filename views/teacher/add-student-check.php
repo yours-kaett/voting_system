@@ -28,10 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $gender = validate($_POST["gender_$rowCounter"]);
         $grade_level = validate($_POST["grade_level_$rowCounter"]);
         $section = validate($_POST["section_$rowCounter"]);
-
-        $stmt = $conn->prepare("INSERT INTO tbl_student 
-        (firstname, middlename, lastname, email, student_id, password, gender, grade_level, section, img_name, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param('ssssssiiiss', $firstname, $middlename, $lastname, $email, $student_id, $password, $gender, $grade_level, $section, $img_name, $created_at);
+        $vote_status = 1;
+        $stmt = $conn->prepare(
+        "INSERT INTO tbl_student 
+        (firstname, middlename, lastname, email, student_id, password, gender, grade_level, section, img_name, created_at, vote_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param('ssssssiiissi', $firstname, $middlename, $lastname, $email, $student_id, $password, $gender, $grade_level, $section, $img_name, $created_at, $vote_status);
         $stmt->execute();
 
         // if ($stmt->error) {

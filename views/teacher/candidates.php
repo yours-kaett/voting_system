@@ -1,7 +1,7 @@
 <?php
 include '../../config.php';
 session_start();
-if ($_SESSION['username']) {
+if ($_SESSION['id']) {
 ?>
     <!DOCTYPE html>
     <html lang="en">
