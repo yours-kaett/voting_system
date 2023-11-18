@@ -36,7 +36,7 @@
                                     ?>
                                         <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center justify-content-center" role="alert">
                                             <div>
-                                                <?php echo $_GET['error']; ?>
+                                                <?php echo $_GET['error'], "Invalid username or password."; ?>
                                                 <a href="teacher-login.php">
                                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                                 </a>

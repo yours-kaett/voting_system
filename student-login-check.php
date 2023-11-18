@@ -27,11 +27,10 @@ if (isset($_POST['student_id']) && isset($_POST['password'])) {
             if ($row['student_id'] === $student_id && $row['password'] === $password) {
                 
                 $_SESSION['id'] = $row['id'];
-                $_SESSION['student_id'] = $row['student_id'];
+                // $_SESSION['student_id'] = $row['student_id'];
 
-                // header("Location: views/voting-area.php");
-                // exit();
-                echo 'Success!';
+                header("Location: views/student/candidates.php");
+                exit();
             } else {
                 header("Location: student-login.php?error");
                 exit();

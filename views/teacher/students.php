@@ -1,7 +1,7 @@
 <?php
 include '../../config.php';
 session_start();
-if ($_SESSION['username']) {
+if ($_SESSION['id']) {
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -59,7 +59,19 @@ if ($_SESSION['username']) {
             ?>
                 <div class="alert alert-success alert-dismissible fade show d-flex align-items-center justify-content-center mb-4" role="alert">
                     <div>
-                        <?php echo $_GET['success'], "New student(s) has been saved successfully."; ?>
+                        <?php echo $_GET['success'], "Candidate(s) has been saved successfully."; ?>
+                        <a href="students.php">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </a>
+                    </div>
+                </div>
+            <?php
+            }
+            if (isset($_GET['error'])) {
+            ?>
+                <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center justify-content-center mb-4" role="alert">
+                    <div>
+                        <?php echo $_GET['error'], "Unknown error occured."; ?>
                         <a href="students.php">
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </a>
@@ -74,11 +86,11 @@ if ($_SESSION['username']) {
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="add-student-check.php" method="POST" enctype="multipart/form-data">
+                                <form action="add-student-check.php" method="POST">
                                     <div id="rows-container"></div>
                                     <div class="d-flex align-items-center justify-content-start mt-3">
                                         <button class="btn btn-primary" id="addRow" type="button">
-                                            <i class="bi bi-plus-lg"></i>&nbsp; Add Student
+                                            <i class="bi bi-plus-lg"></i>&nbsp; Add New Student
                                         </button>&nbsp;
                                         <button class="btn btn-success" type="submit">
                                             Save &nbsp;<i class="bi bi-save"></i>
@@ -94,7 +106,7 @@ if ($_SESSION['username']) {
                                                 <th>Grade Level</th>
                                                 <th>Section</th>
                                                 <th>Voting Status</th>
-                                                <th>Action</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -117,20 +129,18 @@ if ($_SESSION['username']) {
                                             $result = $stmt->get_result();
                                             while ($row = $result->fetch_assoc()) {
                                                 echo '<tr>
-                                                        <td>' . $row['student_id'] . '</td>
                                                         <td>' . $row['firstname'] . " " . $row['middlename'] . " " . $row['lastname'] . '</td>
                                                         <td>' . $row['grade_level'] . '</td>
                                                         <td>' . $row['section'] . '</td>
                                                         <td>' . $row['vote_status'] . '</td>
-                                                        <td>
-                                                            <a href="edit-student.php?id=' . $row['id'] . '">
-                                                                <button class="btn btn-outline-success">
-                                                                    <i class="bi bi-pencil-square"></i>&nbsp;Edit
-                                                                </button>
+                                                        <td class="text-center">
+                                                            <a href="">
+                                                                <button class="btn btn-primary">
+                                                                    <i class="bi bi-pencil-square"></i>                                                               </button>
                                                             </a>
-                                                            <a href="remove-student.php?id=' . $row['id'] . '">
-                                                                <button class="btn btn-outline-danger">
-                                                                    <i class="bi bi-trash"></i>&nbsp;Remove
+                                                            <a href="">
+                                                                <button class="btn btn-danger">
+                                                                    <i class="bi bi-trash"></i>
                                                                 </button>
                                                             </a>
                                                         </td>
@@ -170,20 +180,20 @@ if ($_SESSION['username']) {
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
                             <div class="form-floating">
-                                <input type="student_id" name="student_id_${rowCounter}" id="student_id" placeholder="Student ID" class="form-control" id="student_id" required>
+                                <input type="text" name="student_id_${rowCounter}" id="student_id" placeholder="Student ID" class="form-control" id="student_id" required>
                                 <label for="student_id">Student ID</label>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
                             <div class="form-floating">
-                                <input type="password" name="password_${rowCounter}" id="password" placeholder="Password" class="form-control" id="password" required>
+                                <input type="password" name="password_${rowCounter}" id="password" placeholder="Student ID" class="form-control" id="password" required>
                                 <label for="password">Password</label>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
                             <div class="form-floating">
                                 <select name="gender_${rowCounter}" id="gender" placeholder="Gender" class="form-select" id="gender" required>
-                                    <option disabled selected>-select-</option>
+                                <option selected disabled>-select-</option>
                                 <?php
                                 $stmt = $conn->prepare(' SELECT * FROM tbl_gender ');
                                 $stmt->execute();
@@ -202,8 +212,8 @@ if ($_SESSION['username']) {
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
                             <div class="form-floating">
-                                <select name="grade_level_${rowCounter}" id="grade_level" placeholder="Grade Level" class="form-select" id="grade_level" required>
-                                    <option disabled selected>-select-</option>
+                                <select name="grade_level_${rowCounter}" id="grade_level" placeholder="grade_level" class="form-select" id="grade_level" required>
+                                <option selected disabled>-select-</option>
                                 <?php
                                 $stmt = $conn->prepare(' SELECT * FROM tbl_grade_level ');
                                 $stmt->execute();
@@ -222,8 +232,8 @@ if ($_SESSION['username']) {
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
                             <div class="form-floating">
-                                <select name="section_${rowCounter}" id="section" placeholder="Section" class="form-select" id="section" required>
-                                    <option disabled selected>-select-</option>
+                                <select name="section_${rowCounter}" id="section" placeholder="section" class="form-select" id="section" required>
+                                <option selected disabled>-select-</option>
                                 <?php
                                 $stmt = $conn->prepare(' SELECT * FROM tbl_section ');
                                 $stmt->execute();

@@ -7,6 +7,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link collapsed" href="voting-average.php">
+                <i class="bi bi-bar-chart-line"></i>
+                <span>Voting Average</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link collapsed" href="candidates.php">
                 <i class="bi bi-people"></i>
                 <span>SSLG Candidates</span>

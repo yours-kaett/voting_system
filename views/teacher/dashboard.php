@@ -35,6 +35,7 @@ if ($_SESSION['id']) {
       </div>
 
       <section class="section dashboard">
+
         <div class="row">
           <div class="col-xl-4 col-md-4">
             <div class="card info-card customers-card">
@@ -104,27 +105,30 @@ if ($_SESSION['id']) {
               </div>
             </div>
           </div>
+
         </div>
 
         <div class="row">
-          <div class="col-lg-4 col-md-4">
-            <div class="card">
+          <div class="col-xl-4 col-md-4">
+            <div class="card info-card customers-card">
               <div class="card-body">
                 <h5 class="card-title">Gender Analysis</h5>
                 <div class="d-flex align-items-center">
                   <?php
-                  $stmt = $conn->prepare('SELECT gender FROM tbl_gender');
+                  $stmt = $conn->prepare('SELECT 
+                  tbl_gender.gender, 
+                  COUNT(*) as count 
+                  FROM tbl_student 
+                  INNER JOIN tbl_gender ON tbl_student.gender = tbl_gender.id
+                  GROUP BY tbl_student.gender');
                   $stmt->execute();
                   $result = $stmt->get_result();
+
                   $label_gender = [];
+                  $gender = [];
+
                   while ($row = $result->fetch_assoc()) {
                     $label_gender[] = $row['gender'];
-                  }
-                  $stmt = $conn->prepare('SELECT gender, COUNT(*) as count FROM tbl_student GROUP BY gender');
-                  $stmt->execute();
-                  $result = $stmt->get_result();
-                  $gender = [];
-                  while ($row = $result->fetch_assoc()) {
                     $gender[] = $row['count'];
                   }
                   ?>
@@ -134,24 +138,26 @@ if ($_SESSION['id']) {
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-4">
-            <div class="card">
+          <div class="col-xl-4 col-md-4">
+            <div class="card info-card revenue-card">
               <div class="card-body">
                 <h5 class="card-title">Grade Level Analysis</h5>
                 <div class="d-flex align-items-center">
                   <?php
-                  $stmt = $conn->prepare('SELECT grade_level FROM tbl_grade_level');
+                  $stmt = $conn->prepare('SELECT 
+                  tbl_grade_level.grade_level, 
+                  COUNT(*) as count 
+                  FROM tbl_student 
+                  INNER JOIN tbl_grade_level ON tbl_student.grade_level = tbl_grade_level.id
+                  GROUP BY tbl_student.grade_level');
                   $stmt->execute();
                   $result = $stmt->get_result();
+
                   $label_grade_level = [];
+                  $grade_level = [];
+
                   while ($row = $result->fetch_assoc()) {
                     $label_grade_level[] = $row['grade_level'];
-                  }
-                  $stmt = $conn->prepare('SELECT grade_level, COUNT(*) as count FROM tbl_student GROUP BY grade_level');
-                  $stmt->execute();
-                  $result = $stmt->get_result();
-                  $grade_level = [];
-                  while ($row = $result->fetch_assoc()) {
                     $grade_level[] = $row['count'];
                   }
                   ?>
@@ -161,24 +167,26 @@ if ($_SESSION['id']) {
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-4">
-            <div class="card">
+          <div class="col-xl-4 col-md-4">
+            <div class="card info-card sales-card">
               <div class="card-body">
-                <h5 class="card-title">Section</h5>
+                <h5 class="card-title">Class Section Analysis</h5>
                 <div class="d-flex align-items-center">
                   <?php
-                  $stmt = $conn->prepare('SELECT section FROM tbl_section');
+                  $stmt = $conn->prepare('SELECT 
+                  tbl_section.section, 
+                  COUNT(*) as count 
+                  FROM tbl_student 
+                  INNER JOIN tbl_section ON tbl_student.section = tbl_section.id
+                  GROUP BY tbl_student.section');
                   $stmt->execute();
                   $result = $stmt->get_result();
+
                   $label_section = [];
+                  $section = [];
+
                   while ($row = $result->fetch_assoc()) {
                     $label_section[] = $row['section'];
-                  }
-                  $stmt = $conn->prepare('SELECT section, COUNT(*) as count FROM tbl_student GROUP BY section');
-                  $stmt->execute();
-                  $result = $stmt->get_result();
-                  $section = [];
-                  while ($row = $result->fetch_assoc()) {
                     $section[] = $row['count'];
                   }
                   ?>
@@ -187,71 +195,9 @@ if ($_SESSION['id']) {
               </div>
             </div>
           </div>
+
         </div>
 
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Voting Coverage</h5>
-                <?php
-                $stmt = $conn->prepare('SELECT 
-                tbl_candidates.candidate_name,
-                tbl_position.position,
-                tbl_candidates.candidate_position,
-                tbl_candidates.votes
-                FROM tbl_candidates 
-                INNER JOIN tbl_position ON tbl_candidates.candidate_position = tbl_position.id
-                GROUP BY tbl_candidates.candidate_position');
-                $stmt->execute();
-                $candidates_result = $stmt->get_result();
-                while ($candidates_row = $candidates_result->fetch_assoc()) {
-                  echo '<div class="table-responsive">';
-                  echo '<table class="table table-bordered">';
-                  echo '<thead>';
-                  echo '<tr>';
-                  echo '<th scope="col">' . $candidates_row['position'] . '</th>';
-                  echo '<th scope="col">Votes</th>';
-                  echo '</tr>';
-                  echo '</thead>';
-                  echo '<tbody>';
-
-                  $candidate_position = $candidates_row['candidate_position'];
-                  $stmt2 = $conn->prepare('SELECT * FROM tbl_candidates WHERE candidate_position = ?');
-                  $stmt2->bind_param('i', $candidate_position);
-                  $stmt2->execute();
-                  $name_result = $stmt2->get_result();
-
-                  $maxVotes = 0;
-                  $maxVotesCandidate = '';
-
-                  while ($name_row = $name_result->fetch_assoc()) {
-                    echo '<tr';
-                    echo '>';
-                    echo '<td>' . $name_row['candidate_name'] . '</td>';
-                    echo '<td>' . $name_row['votes'] . '</td>';
-                    echo '</tr>';
-
-                    // Update maxVotes and maxVotesCandidate if needed
-                    if ($name_row['votes'] > $maxVotes) {
-                      $maxVotes = $name_row['votes'];
-                      $maxVotesCandidate = $name_row['candidate_name'];
-                    }
-                  }
-
-                  echo '</tbody>';
-                  echo '</table>';
-                  echo '</div>';
-                  echo '<div class="mb-3 fw-bold text-success">Highest Votes: ' . $maxVotesCandidate . ' (' . $maxVotes . ' votes)</div>';
-                  echo '<hr class="mb-5">';
-                }
-                ?>
-
-
-              </div>
-            </div>
-          </div>
-        </div>
       </section>
 
     </main>
@@ -270,6 +216,7 @@ if ($_SESSION['id']) {
           datasets: [{
             backgroundColor: [
               "#5969ff",
+              "#ff407b",
               "#25d5f2"
             ],
             data: <?php echo json_encode($gender); ?>,
@@ -296,8 +243,9 @@ if ($_SESSION['id']) {
           labels: <?php echo json_encode($label_grade_level); ?>,
           datasets: [{
             backgroundColor: [
+              "#5969ff",
               "#ff407b",
-              "#ffc750"
+              "#25d5f2"
             ],
             data: <?php echo json_encode($grade_level); ?>,
           }]
@@ -323,9 +271,9 @@ if ($_SESSION['id']) {
           labels: <?php echo json_encode($label_section); ?>,
           datasets: [{
             backgroundColor: [
-              "#2ec551",
-              "#7040fa",
-              "#ff004e "
+              "#5969ff",
+              "#ff407b",
+              "#25d5f2"
             ],
             data: <?php echo json_encode($section); ?>,
           }]

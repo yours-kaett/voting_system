@@ -27,9 +27,12 @@ if (isset($_POST['email']) && isset($_POST['username']) && isset($_POST['passwor
     } 
     else {
         $password = md5($password);
+        $firstname = "t-fn";
+        $middlename = "t-mn";
+        $lastname = "t-ln";
         $img_name = "default.jpg";
-        $stmt = $conn->prepare("INSERT INTO tbl_teacher (email, username, password, img_name) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param('ssss', $email, $username, $password, $img_name);
+        $stmt = $conn->prepare("INSERT INTO tbl_teacher (email, username, password, img_name, firstname, middlename, lastname) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param('sssssss', $email, $username, $password, $img_name, $firstname, $middlename, $lastname);
         $stmt->execute();
         $result = $stmt->get_result();
         header("Location: teacher-signup.php?success");

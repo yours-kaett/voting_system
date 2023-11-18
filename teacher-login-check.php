@@ -27,16 +27,16 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             if ($row['username'] === $username && $row['password'] === $password) {
                 
                 $_SESSION['id'] = $row['id'];
-                $_SESSION['username'] = $row['username'];
+                // $_SESSION['username'] = $row['username'];
 
                 header("Location: views/teacher/dashboard.php");
                 exit();
             } else {
-                header("Location: teacher-login.php?error=Invalid username or password.");
+                header("Location: teacher-login.php?error");
                 exit();
             }
         } else {
-            header("Location: teacher-login.php?error=Invalid username or password.");
+            header("Location: teacher-login.php?error");
             exit();
         }
     } catch (Exception $e) {
