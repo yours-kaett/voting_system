@@ -98,7 +98,7 @@ if ($_SESSION['id']) {
                                     </div>
                                 </form>
                                 <div class="table-responsive mt-3">
-                                    <table class="table">
+                                    <table class="table text-center">
                                         <thead>
                                             <tr>
                                                 <th>Student ID</th>
