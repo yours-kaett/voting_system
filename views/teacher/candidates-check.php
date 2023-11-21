@@ -42,6 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $stmt->bind_param('sssis', $candidate_name, $candidate_position, $img_name, $user_id, $created_at);
                     $stmt->execute();
                     $rowCounter++;
+                    header("Location: candidates.php?success");
+                    exit;
                 } else {
                     header("Location: candidates.php?invalid_format");
                     exit;
@@ -51,9 +53,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: candidates.php?file_error");
             exit;
         }
+        if (($candidate_name = '') && ($candidate_position = '') && ($img_name = '')) {
+            header("Location: candidates.php?unknown_error");
+        exit;
+        }
     }
-    header("Location: candidates.php?success");
-    exit;
 } else {
     header("Location: candidates.php?unknown_error");
     exit;
