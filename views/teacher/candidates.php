@@ -123,7 +123,7 @@ if ($_SESSION['id']) {
                                             while ($row = $result->fetch_assoc()) {
                                                 echo '
                                                 <tr>
-                                                    <td><img src="../../candidates-img/' . $row['img_name'] . '" style="width: 80px; height: 80px;" /></td>
+                                                    <td><img src="../../candidates-img/' . $row['img_name'] . '" style="width: 80px; height: 80px; border-radius: 50%;" /></td>
                                                     <td>' . $row['candidate_name'] . '</td>
                                                     <td>' . $row['position'] . '</td>
                                                     <td>

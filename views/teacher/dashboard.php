@@ -40,7 +40,7 @@ if ($_SESSION['id']) {
           <div class="col-xl-4 col-md-4">
             <div class="card info-card customers-card">
               <div class="card-body">
-                <h5 class="card-title">Undone with Voting</h5>
+                <h5 class="card-title">Uncasted Votes</h5>
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     <i class="bi bi-people"></i>
@@ -66,7 +66,7 @@ if ($_SESSION['id']) {
           <div class="col-xl-4 col-md-4">
             <div class="card info-card revenue-card">
               <div class="card-body">
-                <h5 class="card-title">Done with Voting</h5>
+                <h5 class="card-title">Casted Votes</h5>
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     <i class="bi bi-people"></i>
@@ -92,7 +92,7 @@ if ($_SESSION['id']) {
           <div class="col-xl-4 col-md-4">
             <div class="card info-card sales-card">
               <div class="card-body">
-                <h5 class="card-title">All Students</h5>
+                <h5 class="card-title">Total Voters</h5>
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     <i class="bi bi-people"></i>
