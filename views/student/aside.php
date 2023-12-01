@@ -1,9 +1,16 @@
 <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
         <li class="nav-item ">
-            <a class="nav-link " href="candidates.php">
+            <a class="nav-link collapsed" href="candidates.php">
+                <i class="bi bi-award"></i>
+                <span>SSLG Candidates</span>
+            </a>
+        </li>
+
+        <li class="nav-item ">
+            <a class="nav-link collapsed" href="my-candidates.php">
                 <i class="bi bi-speedometer"></i>
-                <span>Candidates</span>
+                <span>My Candidates</span>
             </a>
         </li>
 

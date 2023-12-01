@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['id'])) {
     $stmt_check_voted->execute();
     $result = $stmt_check_voted->get_result();
     if ($result->num_rows > 0) {
-        header("Location: candidates.php?error");
+        header("Location: candidates.php?done");
         exit();
     }
     $stmt_check_voted->close();
@@ -22,18 +22,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['id'])) {
         $stmt_update_votes->bind_param('i', $candidateID);
         $stmt_update_votes->execute();
         $stmt_update_votes->close();
+
+        date_default_timezone_set('Asia/Manila');
+        $created_at = date("F j, Y | l - h : i : s a");
+        $stmt_insert_votes = $conn->prepare('INSERT INTO tbl_votings 
+            (student_id, candidates_id, created_at) VALUES (?, ?, ?)');
+            $stmt_insert_votes->bind_param('iis', $studentID, $candidateID, $created_at);
+            $stmt_insert_votes->execute();
+            $stmt_insert_votes->close();
     }
-
-    $stmt = $conn->prepare('SELECT tbl_student SET vote_status = ? WHERE id = ?');
-    $stmt->bind_param('ii', $vote_status, $studentID);
-    $stmt->execute();
-    $stmt->close();
-
-    // $stmt_insert_votes = $conn->prepare('INSERT INTO tbl_student_votes 
-    // (student_id, president, vice_president, secretary, treasurer, auditor, pio, protocol_officer) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
-    // $stmt_insert_votes->bind_param('isssssss', $studentID, $candidateID, $candidateID, $candidateID, $candidateID, $candidateID, $candidateID, $candidateID);
-    // $stmt_insert_votes->execute();
-    // $stmt_insert_votes->close();
 
     $stmt = $conn->prepare('UPDATE tbl_student SET vote_status = ? WHERE id = ?');
     $stmt->bind_param('ii', $vote_status, $studentID);

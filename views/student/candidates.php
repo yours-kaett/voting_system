@@ -3,10 +3,6 @@ include '../../config.php';
 session_start();
 if ($_SESSION['id']) {
     $studentID = $_SESSION['id'];
-    $stmt = $conn->prepare(' SELECT * FROM tbl_student ');
-    $stmt->execute();
-    $all_result = $stmt->get_result();
-    $all_student = mysqli_num_rows($all_result);
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -47,7 +43,7 @@ if ($_SESSION['id']) {
             <?php
             if (isset($_GET['success'])) {
             ?>
-                <div class="alert alert-success alert-dismissible fade show d-flex align-items-center justify-content-center mb-4" role="alert">
+                <div class="alert alert-success alert-dismissible fade show d-flex align-items-center justify-content-center my-3" role="alert">
                     <div>
                         <?php echo $_GET['success'], "Your vote has been submitted successfully."; ?>
                         <a href="candidates.php">
@@ -57,11 +53,11 @@ if ($_SESSION['id']) {
                 </div>
             <?php
             }
-            if (isset($_GET['error'])) {
+            if (isset($_GET['done'])) {
             ?>
-                <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center justify-content-center mb-4" role="alert">
+                <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center justify-content-center my-3" role="alert">
                     <div>
-                        <?php echo $_GET['error'], "You have already voted."; ?>
+                        <?php echo $_GET['done'], "You have already done voting."; ?>
                         <a href="candidates.php">
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </a>
@@ -70,7 +66,7 @@ if ($_SESSION['id']) {
             <?php
             }
             ?>
-                <form action="submit-vote.php" method="POST" class="mt-5">
+                <form action="submit-vote.php" method="POST" class="mt-4">
                     <div class="row">
                         <h3 class="mb-3">President</h3>
                         <?php
@@ -93,7 +89,7 @@ if ($_SESSION['id']) {
                             $candidate_name = $row['candidate_name'];
                             $img_name = $row['img_name'];
                             echo '
-                            <div class="col-lg-3 d-flex align-items-end">
+                            <div class="col-lg-3 d-flex align-items-end mb-3">
                                 <input type="radio" name="position_' . $position . '" value="' . $candidate_id . '" />
                                 <img src="../../candidates-img/' . $img_name . '" alt="Profile" class="mx-2" id=" ' . $candidate_id . ' " style="width: 120px; height: 120px;" />
                                 <span>' . $candidate_name . '</span>
@@ -314,7 +310,6 @@ if ($_SESSION['id']) {
 
         <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="../../assets/js/main.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
     </body>
 
