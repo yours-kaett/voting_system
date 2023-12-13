@@ -37,10 +37,20 @@ if ($_SESSION['id']) {
       <section class="section dashboard">
 
         <div class="row">
+
           <div class="col-xl-4 col-md-4">
             <div class="card info-card customers-card">
               <div class="card-body">
-                <h5 class="card-title">Uncasted Votes</h5>
+                <h4 class="mt-4">Uncasted Votes |
+                  <span>
+                    <?php $uncasted = 1; ?>
+                    <a href="viewing-voters.php?id=<?php echo $uncasted ?>">
+                      <button class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-eye"></i>&nbsp; View All
+                      </button>
+                    </a>
+                  </span>
+                </h4>
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     <i class="bi bi-people"></i>
@@ -66,7 +76,16 @@ if ($_SESSION['id']) {
           <div class="col-xl-4 col-md-4">
             <div class="card info-card revenue-card">
               <div class="card-body">
-                <h5 class="card-title">Casted Votes</h5>
+                <h4 class="mt-4">Casted Votes |
+                  <span>
+                    <?php $casted = 2; ?>
+                    <a href="viewing-voters.php?id=<?php echo $casted ?>">
+                      <button class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-eye"></i>&nbsp; View All
+                      </button>
+                    </a>
+                  </span>
+                </h4>
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     <i class="bi bi-people"></i>
@@ -92,7 +111,15 @@ if ($_SESSION['id']) {
           <div class="col-xl-4 col-md-4">
             <div class="card info-card sales-card">
               <div class="card-body">
-                <h5 class="card-title">Total Voters</h5>
+                <h4 class="mt-4">Total Voters |
+                  <span>
+                    <a href="total-voters">
+                      <button class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-eye"></i>&nbsp; View All
+                      </button>
+                    </a>
+                  </span>
+                </h4>
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     <i class="bi bi-people"></i>
@@ -238,7 +265,7 @@ if ($_SESSION['id']) {
     <script type="text/javascript">
       var ctx = document.getElementById("grade_level_chart").getContext('2d');
       var myChart = new Chart(ctx, {
-        type: 'pie',
+        type: 'doughnut',
         data: {
           labels: <?php echo json_encode($label_grade_level); ?>,
           datasets: [{
@@ -266,7 +293,7 @@ if ($_SESSION['id']) {
     <script type="text/javascript">
       var ctx = document.getElementById("section_chart").getContext('2d');
       var myChart = new Chart(ctx, {
-        type: 'polarArea',
+        type: 'doughnut',
         data: {
           labels: <?php echo json_encode($label_section); ?>,
           datasets: [{
