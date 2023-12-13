@@ -46,7 +46,7 @@ if ($_SESSION['id']) {
                     <?php $uncasted = 1; ?>
                     <a href="viewing-voters.php?id=<?php echo $uncasted ?>">
                       <button class="btn btn-outline-primary btn-sm">
-                        <i class="bi bi-eye"></i>&nbsp; View
+                        <i class="bi bi-eye"></i>&nbsp; View All
                       </button>
                     </a>
                   </span>
@@ -81,7 +81,7 @@ if ($_SESSION['id']) {
                     <?php $casted = 2; ?>
                     <a href="viewing-voters.php?id=<?php echo $casted ?>">
                       <button class="btn btn-outline-primary btn-sm">
-                        <i class="bi bi-eye"></i>&nbsp; View
+                        <i class="bi bi-eye"></i>&nbsp; View All
                       </button>
                     </a>
                   </span>
@@ -115,7 +115,7 @@ if ($_SESSION['id']) {
                   <span>
                     <a href="total-voters">
                       <button class="btn btn-outline-primary btn-sm">
-                        <i class="bi bi-eye"></i>&nbsp; View
+                        <i class="bi bi-eye"></i>&nbsp; View All
                       </button>
                     </a>
                   </span>

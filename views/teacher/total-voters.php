@@ -23,78 +23,73 @@ if ($_SESSION['id']) {
     <body>
         <?php include 'header.php' ?>
         <?php include 'aside.php' ?>
+        <?php
+        $u = 1;
+        $c = 2;
+        $stmt = $conn->prepare('SELECT * FROM tbl_student WHERE vote_status = ?');
+        $stmt->bind_param('i', $u);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $uncasted = mysqli_num_rows($result);
+        $stmt->close();
+
+        $stmt = $conn->prepare('SELECT * FROM tbl_student WHERE vote_status = ?');
+        $stmt->bind_param('i', $c);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $casted = mysqli_num_rows($result);
+        $stmt->close();
+
+        $stmt = $conn->prepare('SELECT * FROM tbl_student ');
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $all_student = mysqli_num_rows($result);
+        $stmt->close();
+        ?>
 
         <main id="main" class="main">
 
             <div class="pagetitle">
-                <h1>Students Masterlist</h1>
+                <h1>Total Voters</h1>
             </div>
-
-            <?php
-            if (isset($_GET['exist'])) {
-            ?>
-                <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center justify-content-center mb-4" role="alert">
-                    <div>
-                        <?php echo $_GET['exist'], "You have inputted an existing Student ID. Please try again!"; ?>
-                        <a href="students.php">
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </a>
-                    </div>
-                </div>
-            <?php
-            }
-            if (isset($_GET['unknown_error'])) {
-            ?>
-                <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center justify-content-center mb-4" role="alert">
-                    <div>
-                        <?php echo $_GET['unknown_error'], "Unknown error occured."; ?>
-                        <a href="students.php">
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </a>
-                    </div>
-                </div>
-            <?php
-            }
-            if (isset($_GET['success'])) {
-            ?>
-                <div class="alert alert-success alert-dismissible fade show d-flex align-items-center justify-content-center mb-4" role="alert">
-                    <div>
-                        <?php echo $_GET['success'], "Candidate(s) has been saved successfully."; ?>
-                        <a href="students.php">
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </a>
-                    </div>
-                </div>
-            <?php
-            }
-            if (isset($_GET['error'])) {
-            ?>
-                <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center justify-content-center mb-4" role="alert">
-                    <div>
-                        <?php echo $_GET['error'], "Unknown error occured."; ?>
-                        <a href="students.php">
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </a>
-                    </div>
-                </div>
-            <?php
-            }
-            ?>
 
             <section class="section dashboard">
                 <div class="row">
                     <div class="col-lg-12">
+                        <h6 class="mt-2 fw-bold">
+                            <span>
+                                <a href="viewing-voters.php?id=<?php echo $c ?>">Casted Votes </a>
+                            </span>
+                            <?php
+                                echo " - " . $casted;
+                            ?>
+                        </h6>
+                        <h6 class="mt-2 fw-bold">
+                            <span>
+                                <a href="viewing-voters.php?id=<?php echo $u ?>">Uncasted Votes </a>
+                            </span>
+                            <?php
+                                echo " - " . $uncasted;
+                            ?>
+                        </h6>
+                        <h6 class="mt-2 fw-bold">
+                            <span>
+                                <a href="#">Total Voters </a>
+                            </span>
+                            <?php
+                                echo " - " . $all_student;
+                            ?>
+                        </h6>
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive mt-3">
-                                    <table class="table text-center">
+                                    <table class="table">
                                         <thead>
                                             <tr>
                                                 <th>Name</th>
                                                 <th>Grade Level</th>
                                                 <th>Section</th>
                                                 <th>Voting Status</th>
-                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -121,17 +116,6 @@ if ($_SESSION['id']) {
                                                         <td>' . $row['grade_level'] . '</td>
                                                         <td>' . $row['section'] . '</td>
                                                         <td>' . $row['vote_status'] . '</td>
-                                                        <td class="text-center">
-                                                            <a href="">
-                                                                <button class="btn btn-primary">
-                                                                    <i class="bi bi-pencil-square"></i>                                                               </button>
-                                                            </a>
-                                                            <a href="">
-                                                                <button class="btn btn-danger">
-                                                                    <i class="bi bi-trash"></i>
-                                                                </button>
-                                                            </a>
-                                                        </td>
                                                     </tr>';
                                             }
                                             ?>

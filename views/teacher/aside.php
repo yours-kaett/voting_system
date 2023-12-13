@@ -14,14 +14,14 @@
         </li>
         <li class="nav-item">
             <a class="nav-link collapsed" href="candidates.php">
-                <i class="bi bi-people"></i>
+                <i class="bi bi-award"></i>
                 <span>SSLG Candidates</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="students.php">
+            <a class="nav-link collapsed" href="total-voters.php">
                 <i class="bi bi-people"></i>
-                <span>Students Masterlist</span>
+                <span>Total Voters</span>
             </a>
         </li>
         <li class="nav-item">
