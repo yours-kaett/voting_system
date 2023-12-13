@@ -41,7 +41,16 @@ if ($_SESSION['id']) {
           <div class="col-xl-4 col-md-4">
             <div class="card info-card customers-card">
               <div class="card-body">
-                <h5 class="card-title">Undone with Voting</h5>
+                <h4 class="mt-4">Uncasted Votes |
+                  <span>
+                    <?php $uncasted = 1; ?>
+                    <a href="viewing-voters.php?id=<?php echo $uncasted ?>">
+                      <button class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-eye"></i>&nbsp; View All
+                      </button>
+                    </a>
+                  </span>
+                </h4>
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     <i class="bi bi-people"></i>
@@ -67,7 +76,16 @@ if ($_SESSION['id']) {
           <div class="col-xl-4 col-md-4">
             <div class="card info-card revenue-card">
               <div class="card-body">
-                <h5 class="card-title">Done with Voting</h5>
+                <h4 class="mt-4">Casted Votes |
+                  <span>
+                    <?php $casted = 2; ?>
+                    <a href="viewing-voters.php?id=<?php echo $casted ?>">
+                      <button class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-eye"></i>&nbsp; View All
+                      </button>
+                    </a>
+                  </span>
+                </h4>
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     <i class="bi bi-people"></i>
@@ -93,7 +111,15 @@ if ($_SESSION['id']) {
           <div class="col-xl-4 col-md-4">
             <div class="card info-card sales-card">
               <div class="card-body">
-                <h5 class="card-title">All Students</h5>
+                <h4 class="mt-4">Total Voters |
+                  <span>
+                    <a href="total-voters">
+                      <button class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-eye"></i>&nbsp; View All
+                      </button>
+                    </a>
+                  </span>
+                </h4>
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     <i class="bi bi-people"></i>
@@ -199,73 +225,6 @@ if ($_SESSION['id']) {
 
         </div>
 
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Voting Coverage</h5>
-                <?php
-                $stmt = $conn->prepare('SELECT 
-                tbl_candidates.candidate_name,
-                tbl_position.position,
-                tbl_candidates.candidate_position,
-                tbl_candidates.votes
-                FROM tbl_candidates 
-                INNER JOIN tbl_position ON tbl_candidates.candidate_position = tbl_position.id
-                GROUP BY tbl_candidates.candidate_position');
-                $stmt->execute();
-                $candidates_result = $stmt->get_result();
-                while ($candidates_row = $candidates_result->fetch_assoc()) {
-                  echo '<div class="table-responsive">';
-                  echo '<table class="table table-bordered">';
-                  echo '<thead>';
-                  echo '<tr>';
-                  echo '<th scope="col">' . $candidates_row['position'] . '</th>';
-                  echo '<th scope="col">Votes</th>';
-                  echo '</tr>';
-                  echo '</thead>';
-                  echo '<tbody>';
-
-                  $candidate_position = $candidates_row['candidate_position'];
-                  $stmt2 = $conn->prepare('SELECT * FROM tbl_candidates WHERE candidate_position = ?');
-                  $stmt2->bind_param('i', $candidate_position);
-                  $stmt2->execute();
-                  $name_result = $stmt2->get_result();
-
-                  $maxVotes = 0;
-                  $maxVotesCandidate = '';
-
-                  while ($name_row = $name_result->fetch_assoc()) {
-                    echo '<tr';
-                    if ($name_row['votes'] == $maxVotes) {
-                      echo ' class="fw-bold"';
-                    }
-                    echo '>';
-                    echo '<td>' . $name_row['candidate_name'] . '</td>';
-                    echo '<td>' . $name_row['votes'] . '</td>';
-                    echo '</tr>';
-
-                    // Update maxVotes and maxVotesCandidate if needed
-                    if ($name_row['votes'] > $maxVotes) {
-                      $maxVotes = $name_row['votes'];
-                      $maxVotesCandidate = $name_row['candidate_name'];
-                    }
-                  }
-
-                  echo '</tbody>';
-                  echo '</table>';
-                  echo '</div>';
-                  echo '<div class="mb-3">Highest Votes: <span class="text-success fw-bold">' . $maxVotesCandidate . ' (' . $maxVotes . ' votes)</span></div>';
-                  echo '<hr class="mb-5">';
-                }
-                ?>
-
-
-              </div>
-            </div>
-          </div>
-        </div>
-
       </section>
 
     </main>
@@ -303,11 +262,10 @@ if ($_SESSION['id']) {
         }
       });
     </script>
-
     <script type="text/javascript">
       var ctx = document.getElementById("grade_level_chart").getContext('2d');
       var myChart = new Chart(ctx, {
-        type: 'pie',
+        type: 'doughnut',
         data: {
           labels: <?php echo json_encode($label_grade_level); ?>,
           datasets: [{
@@ -332,11 +290,10 @@ if ($_SESSION['id']) {
         }
       });
     </script>
-
     <script type="text/javascript">
       var ctx = document.getElementById("section_chart").getContext('2d');
       var myChart = new Chart(ctx, {
-        type: 'polarArea',
+        type: 'doughnut',
         data: {
           labels: <?php echo json_encode($label_section); ?>,
           datasets: [{

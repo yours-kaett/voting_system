@@ -32,7 +32,7 @@
                                 <button class="btn-starter w-100 mt-3 mb-2">Student</button>
                             </a>
                             <a href="teacher-login.php">
-                                <button class="btn-starter w-100">Teacher</button>
+                                <button class="btn-starter w-100">Election Officer</button>
                             </a>
                         </div>
                     </div>

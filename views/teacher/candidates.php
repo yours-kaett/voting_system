@@ -1,7 +1,7 @@
 <?php
 include '../../config.php';
 session_start();
-if ($_SESSION['username']) {
+if ($_SESSION['id']) {
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -71,7 +71,7 @@ if ($_SESSION['username']) {
             ?>
                 <div class="alert alert-success alert-dismissible fade show d-flex align-items-center justify-content-center mb-4" role="alert">
                     <div>
-                        <?php echo $_GET['success'], "Candidate(s) has been saved successfully."; ?>
+                        <?php echo $_GET['success'], "New candidate has been saved successfully."; ?>
                         <a href="candidates.php">
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </a>
@@ -90,9 +90,9 @@ if ($_SESSION['username']) {
                                     <div id="rows-container"></div>
                                     <div class="d-flex align-items-center justify-content-start mt-3">
                                         <button class="btn btn-primary" id="addRow" type="button">
-                                            <i class="bi bi-plus-lg"></i>&nbsp; Add Candidates
+                                            <i class="bi bi-plus-lg"></i>&nbsp; Add Candidate
                                         </button>&nbsp;
-                                        <button class="btn btn-success" type="submit">
+                                        <button class="btn btn-success" type="submit" style="display: none;" id="save">
                                             Save &nbsp;<i class="bi bi-save"></i>
                                         </button>
                                     </div>
@@ -101,6 +101,7 @@ if ($_SESSION['username']) {
                                     <table class="table">
                                         <thead>
                                             <tr>
+                                                <th>Profile</th>
                                                 <th>Name</th>
                                                 <th>Position</th>
                                                 <th>Action</th>
@@ -112,6 +113,7 @@ if ($_SESSION['username']) {
                                             tbl_candidates.id,
                                             tbl_candidates.candidate_name,
                                             tbl_candidates.candidate_position,
+                                            tbl_candidates.img_name,
                                             tbl_position.position
                                             FROM tbl_candidates
                                             INNER JOIN tbl_position ON tbl_candidates.candidate_position = tbl_position.id
@@ -119,7 +121,9 @@ if ($_SESSION['username']) {
                                             $stmt->execute();
                                             $result = $stmt->get_result();
                                             while ($row = $result->fetch_assoc()) {
-                                                echo '<tr>
+                                                echo '
+                                                <tr>
+                                                    <td><img src="../../candidates-img/' . $row['img_name'] . '" style="width: 80px; height: 80px; border-radius: 50%;" /></td>
                                                     <td>' . $row['candidate_name'] . '</td>
                                                     <td>' . $row['position'] . '</td>
                                                     <td>
@@ -134,7 +138,7 @@ if ($_SESSION['username']) {
                                                             </button>
                                                         </a>
                                                     </td>
-                                                    </tr>';
+                                                </tr>';
                                             }
                                             ?>
                                         </tbody>
@@ -198,6 +202,8 @@ if ($_SESSION['username']) {
                     `;
                     rowsContainer.appendChild(newRow);
                     rowCounter++;
+                    addRowButton.style.display = "none";
+                    document.getElementById("save").style.display = "flex";
                 });
             });
         </script>
