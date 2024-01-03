@@ -26,8 +26,21 @@ if ($_SESSION['id']) {
 
         <main id="main" class="main">
 
-            <div class="pagetitle">
-                <h1>SSLG Candidates</h1>
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="pagetitle">
+                    <h1>SSLG Candidates</h1>
+                    <nav style="--bs-breadcrumb-divider: '•';">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">Voting System</li>
+                            <li class="breadcrumb-item">SSLG Candidates</li>
+                        </ol>
+                    </nav>
+                </div>
+                <a href="print-candidates.php" target="_blank">
+                    <button class="btn btn-success mb-3">
+                        <i class="bi bi-printer"></i>&nbsp; Print
+                    </button>
+                </a>
             </div>
 
             <?php

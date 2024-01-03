@@ -21,8 +21,7 @@ if ($_SESSION['id']) {
     </head>
 
     <body>
-        <?php include 'header.php' ?>
-        <?php include 'aside.php' ?>
+
         <?php
         $u = 1;
         $c = 2;
@@ -47,29 +46,21 @@ if ($_SESSION['id']) {
         $stmt->close();
         ?>
 
-        <main id="main" class="main">
-
-            <div class="d-flex align-items-center justify-content-between">
-                <div class="pagetitle">
-                    <h1>Total Voters</h1>
-                    <nav style="--bs-breadcrumb-divider: '•';">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item">Voting System</li>
-                            <li class="breadcrumb-item">Total Voters</li>
-                        </ol>
-                    </nav>
-                </div>
-                <a href="print-voters.php" target="_blank">
-                    <button class="btn btn-success mb-3">
-                        <i class="bi bi-printer"></i>&nbsp; Print
-                    </button>
-                </a>
+        <main>
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <img src="../../assets/img/LOGO.png" alt="Logo" width="90">
+                <p class="text-center"><span clas="text-success">Escalante National High School </span><br /> <span class="fw-bold">SSLG Voting System Voters</span></p>
+                <p>
+                    <?php 
+                    date_default_timezone_set('Asia/Manila');
+                    echo date("F j, Y");
+                    ?>
+                </p>
             </div>
-
-            <section class="section dashboard">
+            <section class="section">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="d-flex">
+                        <div class="d-flex mt-5">
                             <h6 class="me-3 fw-bold">
                                 <span>
                                     <a href="viewing-voters.php?id=<?php echo $c ?>">Casted Votes </a>
@@ -149,10 +140,20 @@ if ($_SESSION['id']) {
 
         </main>
 
-        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
         <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="../../assets/js/main.js"></script>
+        <script type="text/javascript">
+            function PrintPage() {
+                window.print();
+            }
+            window.addEventListener('DOMContentLoaded', (event) => {
+                PrintPage()
+                setTimeout(function() {
+                    window.close()
+                }, 900)
+            });
+        </script>
 
     </body>
 

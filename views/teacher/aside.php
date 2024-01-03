@@ -7,9 +7,9 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="voting-average.php">
+            <a class="nav-link collapsed" href="candidates-votes.php">
                 <i class="bi bi-bar-chart-line"></i>
-                <span>Voting Average</span>
+                <span>Candidates Votes</span>
             </a>
         </li>
         <li class="nav-item">
@@ -24,10 +24,16 @@
                 <span>Total Voters</span>
             </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a class="nav-link collapsed" href="user-profile.php">
                 <i class="bi bi-person-circle"></i>
                 <span>Profile</span>
+            </a>
+        </li> -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="../../logout.php">
+                <i class="bi bi-power"></i>
+                <span>Signout</span>
             </a>
         </li>
     </ul>

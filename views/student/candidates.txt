@@ -313,7 +313,7 @@ if ($_SESSION['id']) {
                         <div class="modal-dialog">
                             <div class="modal-content p-1">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="submitModalLabel">Voting Confirmation</h1>
+                                    <h1 class="modal-title fs-5" id="submitModalLabel">Selected Candidates</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
@@ -327,7 +327,7 @@ if ($_SESSION['id']) {
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-success">Confirm &nbsp;<i class="bi bi-check2-circle"></i></button>
+                                    <button type="submit" class="btn btn-success">Confirm</button>
                                 </div>
                             </div>
                         </div>

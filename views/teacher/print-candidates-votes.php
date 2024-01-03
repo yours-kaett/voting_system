@@ -12,7 +12,7 @@ if ($_SESSION['id']) {
         <title>Online Voting System</title>
         <meta content="" name="description">
         <meta content="" name="keywords">
-        <link href="../../assets/img/logo.png" rel="icon">
+        <link href="../../assets/img/LOGO.png" rel="icon">
         <link href="https://fonts.gstatic.com" rel="preconnect">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
         <link href="../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -21,20 +21,23 @@ if ($_SESSION['id']) {
     </head>
 
     <body>
-        <?php include 'header.php' ?>
-        <?php include 'aside.php' ?>
-
-        <main id="main" class="main">
-
-            <div class="pagetitle">
-                <h1>Voting Average</h1>
-            </div>
-            <section class="section dashboard">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <img src="../../assets/img/LOGO.png" alt="Logo" width="90">
+            <p class="text-center"><span clas="text-success">Escalante National High School </span><br /> <span class="fw-bold">SSLG Candidates Votes</span></p>
+            <p>
+                <?php 
+                date_default_timezone_set('Asia/Manila');
+                echo date("F j, Y");
+                ?>
+            </p>
+        </div>
+        <main>
+            <section class="section">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <?php
+                        <div class="">
+                            <div class="">
+                            <?php
                                 $stmt = $conn->prepare('SELECT 
                                 tbl_candidates.candidate_name,
                                 tbl_position.position,
@@ -57,13 +60,13 @@ if ($_SESSION['id']) {
                                     echo '<tbody>';
 
                                     $candidate_position = $candidates_row['candidate_position'];
-                                    $stmt2 = $conn->prepare('SELECT * FROM tbl_candidates WHERE candidate_position = ?');
+                                    $stmt2 = $conn->prepare('SELECT * FROM tbl_candidates WHERE candidate_position = ? ORDER BY votes DESC');
                                     $stmt2->bind_param('i', $candidate_position);
                                     $stmt2->execute();
                                     $name_result = $stmt2->get_result();
 
                                     $maxVotes = 0;
-                                    $maxVotesCandidate = '';
+                                    $maxVotesCandidates = [];
 
                                     while ($name_row = $name_result->fetch_assoc()) {
                                         echo '<tr>';
@@ -71,17 +74,22 @@ if ($_SESSION['id']) {
                                         echo '<td>' . $name_row['votes'] . '</td>';
                                         echo '</tr>';
 
-                                        // Update maxVotes and maxVotesCandidate if needed
-                                        if ($name_row['votes'] > $maxVotes) {
+                                        if ($name_row['votes'] >= $maxVotes) {
                                             $maxVotes = $name_row['votes'];
-                                            $maxVotesCandidate = $name_row['candidate_name'];
+                                            $maxVotesCandidates[] = $name_row['candidate_name'];
                                         }
                                     }
 
                                     echo '</tbody>';
                                     echo '</table>';
                                     echo '</div>';
-                                    echo '<div class="mb-3">Highest Votes: <span class="text-success fw-bold">' . $maxVotesCandidate . ' (' . $maxVotes . ' votes)</span></div>';
+                                    
+                                    if (count($maxVotesCandidates) > 1) {
+                                        echo '<div class="mb-3">Tie for Highest Votes: <span class="text-success fw-bold">' . implode(', ', $maxVotesCandidates) . ' (' . $maxVotes . ' votes each)</span></div>';
+                                    } else {
+                                        echo '<div class="mb-3">Highest Votes: <span class="text-success fw-bold">' . $maxVotesCandidates[0] . ' (' . $maxVotes . ' votes)</span></div>';
+                                    }
+
                                     echo '<hr>';
                                 }
                                 ?>
@@ -97,6 +105,17 @@ if ($_SESSION['id']) {
 
         <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="../../assets/js/main.js"></script>
+        <script type="text/javascript">
+            function PrintPage() {
+                window.print();
+            }
+            window.addEventListener('DOMContentLoaded', (event) => {
+                PrintPage()
+                setTimeout(function() {
+                    window.close()
+                }, 900)
+            });
+        </script>
     </body>
 
     </html>

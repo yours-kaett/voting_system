@@ -13,9 +13,9 @@ $img_name = $row['img_name'];
 ?>
 <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo d-flex align-items-center">
+        <a href="dashboard.php" class="logo d-flex align-items-center">
             <img src="../../assets/img/logo.png" alt="">
-            <span>&nbsp;VS-SSLG-ENHS</span>
+            <span>&nbsp;Voting System</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div>
@@ -28,27 +28,26 @@ $img_name = $row['img_name'];
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
-                        <h6><?php echo $firstname . " " . $middlename . " " . $lastname ?></h6>
-                        <span>Teacher</span>
+                        <h6>Election Officer</h6>
                     </li>
-                    <li>
+                    <!-- <li>
                         <hr class="dropdown-divider">
                     </li>
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                        <a class="dropdown-item d-flex align-items-center" href="#">
                             <i class="bi bi-person"></i>
                             <span>Profile</span>
                         </a>
-                    </li>
-                    <li>
+                    </li> -->
+                    <!-- <li>
                         <hr class="dropdown-divider">
-                    </li>
-                    <li>
+                    </li> -->
+                    <!-- <li>
                         <a class="dropdown-item d-flex align-items-center" href="../../logout.php">
-                            <i class="bi bi-box-arrow-right"></i>
+                            <i class="bi bi-power"></i>
                             <span>Sign Out</span>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </li>
         </ul>

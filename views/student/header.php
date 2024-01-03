@@ -13,9 +13,9 @@ $img_name = $row['img_name'];
 ?>
 <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo d-flex align-items-center">
+        <a href="candidates.php" class="logo d-flex align-items-center">
             <img src="../../assets/img/logo.png" alt="">
-            <span>&nbsp; Voting System</span>
+            <span>&nbsp;Voting System</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div>
@@ -45,7 +45,7 @@ $img_name = $row['img_name'];
                     </li>
                     <li>
                         <a class="dropdown-item d-flex align-items-center" href="../../logout.php">
-                            <i class="bi bi-box-arrow-right"></i>
+                            <i class="bi bi-power"></i>
                             <span>Sign Out</span>
                         </a>
                     </li>

@@ -23,7 +23,7 @@
 
         <li class="nav-item">
             <a href="../../logout.php" class="nav-link collapsed">
-                <i class="bi bi-box-arrow-in-left"></i>
+                <i class="bi bi-power"></i>
                 <span>Logout</span>
             </a>
         </li>
