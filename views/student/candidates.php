@@ -305,7 +305,20 @@ if ($_SESSION['id']) {
                         ?>
                     </div>
                     <hr class="my-4">
-                    <button class="btn btn-success" id="submit" type="button" data-bs-toggle="modal" data-bs-target="#submitModal">
+                    <?php
+                    $vote_status = 1;
+                    $stmt = $conn->prepare(' SELECT * FROM tbl_student WHERE vote_status = ? AND id = ? ');
+                    $stmt->bind_param('ii', $vote_status, $studentID);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+                    if (mysqli_num_rows($result) > 0) {
+                        $btn_indicator = "block";
+                    } else {
+                        $btn_indicator = "none";
+                    }
+                    
+                    ?>
+                    <button class="btn btn-success" style="display: <?php echo $btn_indicator ?>;" id="submit" type="button" data-bs-toggle="modal" data-bs-target="#submitModal">
                         Submit Vote &nbsp;<i class="bi bi-skip-forward"></i>
                     </button>
 
