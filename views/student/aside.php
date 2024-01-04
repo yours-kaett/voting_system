@@ -15,16 +15,9 @@
         </li>
 
         <li class="nav-item">
-            <a href="#" class="nav-link collapsed">
-                <i class="bi bi-person"></i>
-                <span>Account</span>
-            </a>
-        </li>
-
-        <li class="nav-item">
             <a href="../../logout.php" class="nav-link collapsed">
                 <i class="bi bi-power"></i>
-                <span>Logout</span>
+                <span>Sign Out</span>
             </a>
         </li>
     </ul>

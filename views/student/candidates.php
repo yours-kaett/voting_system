@@ -116,7 +116,7 @@ if ($_SESSION['id']) {
                             $president_name = $row['candidate_name'];
                             $img_name = $row['img_name'];
                             echo '
-                            <div class="col-lg-3 d-flex align-items-end mb-3">
+                            <div class="col-lg-4 col-md-4 col-sm-6 d-flex align-items-center mb-3">
                                 <input type="radio" name="position_' . $candidate_position . '" value="' . $candidate_id . '" id="pres_' . $candidate_id . '" />
                                 <label class="form-check-label" for="pres_' . $candidate_id . '">
                                     <img src="../../candidates-img/' . $img_name . '" alt="Profile" class="form-check-input mx-2" id=" ' . $candidate_id . ' " style="width: 120px; height: 120px; border-radius: 50%; cursor: pointer;" />
@@ -150,7 +150,7 @@ if ($_SESSION['id']) {
                             $vicepresident_name = $row['candidate_name'];
                             $img_name = $row['img_name'];
                             echo '
-                            <div class="col-lg-3 d-flex align-items-end mb-3">
+                            <div class="col-lg-4 col-md-4 col-sm-6 d-flex align-items-center mb-3">
                                 <input type="radio" name="position_' . $candidate_position . '" value="' . $candidate_id . '" id="vpres_' . $candidate_id . '" />
                                 <label class="form-check-label" for="vpres_' . $candidate_id . '">
                                     <img src="../../candidates-img/' . $img_name . '" alt="Profile" class="form-check-input mx-2" id=" ' . $candidate_id . ' " style="width: 120px; height: 120px; border-radius: 50%; cursor: pointer;" />
@@ -184,7 +184,7 @@ if ($_SESSION['id']) {
                             $secretary_name = $row['candidate_name'];
                             $img_name = $row['img_name'];
                             echo '
-                            <div class="col-lg-3 d-flex align-items-end mb-3">
+                            <div class="col-lg-4 col-md-4 col-sm-6 d-flex align-items-center mb-3">
                                 <input type="radio" name="position_' . $candidate_position . '" value="' . $candidate_id . '" id="secretary_' . $candidate_id . '" />
                                 <label class="form-check-label" for="secretary_' . $candidate_id . '">
                                     <img src="../../candidates-img/' . $img_name . '" alt="Profile" class="form-check-input mx-2" id=" ' . $candidate_id . ' " style="width: 120px; height: 120px; border-radius: 50%; cursor: pointer;" />
@@ -218,7 +218,7 @@ if ($_SESSION['id']) {
                             $treasurer_name = $row['candidate_name'];
                             $img_name = $row['img_name'];
                             echo '
-                            <div class="col-lg-3 d-flex align-items-end mb-3">
+                            <div class="col-lg-4 col-md-4 col-sm-6 d-flex align-items-center mb-3">
                                 <input type="radio" name="position_' . $candidate_position . '" value="' . $candidate_id . '" id="treasurer_' . $candidate_id . '" />
                                 <label class="form-check-label" for="treasurer_' . $candidate_id . '">
                                     <img src="../../candidates-img/' . $img_name . '" alt="Profile" class="form-check-input mx-2" id=" ' . $candidate_id . ' " style="width: 120px; height: 120px; border-radius: 50%; cursor: pointer;" />
@@ -252,7 +252,7 @@ if ($_SESSION['id']) {
                             $auditor_name = $row['candidate_name'];
                             $img_name = $row['img_name'];
                             echo '
-                            <div class="col-lg-3 d-flex align-items-end mb-3">
+                            <div class="col-lg-4 col-md-4 col-sm-6 d-flex align-items-center mb-3">
                                 <input type="radio" name="position_' . $candidate_position . '" value="' . $candidate_id . '" id="auditor_' . $candidate_id . '" />
                                 <label class="form-check-label" for="auditor_' . $candidate_id . '">
                                     <img src="../../candidates-img/' . $img_name . '" alt="Profile" class="form-check-input mx-2" id=" ' . $candidate_id . ' " style="width: 120px; height: 120px; border-radius: 50%; cursor: pointer;" />
@@ -286,7 +286,7 @@ if ($_SESSION['id']) {
                             $pio_name = $row['candidate_name'];
                             $img_name = $row['img_name'];
                             echo '
-                            <div class="col-lg-3 d-flex align-items-end mb-3">
+                            <div class="col-lg-4 col-md-4 col-sm-6 d-flex align-items-center mb-3">
                                 <input type="radio" name="position_' . $candidate_position . '" value="' . $candidate_id . '" id="pio_' . $candidate_id . '" />
                                 <label class="form-check-label" for="pio_' . $candidate_id . '">
                                     <img src="../../candidates-img/' . $img_name . '" alt="Profile" class="form-check-input mx-2" id=" ' . $candidate_id . ' " style="width: 120px; height: 120px; border-radius: 50%; cursor: pointer;" />
@@ -320,7 +320,7 @@ if ($_SESSION['id']) {
                             $protocolofficer_name = $row['candidate_name'];
                             $img_name = $row['img_name'];
                             echo '
-                            <div class="col-lg-3 d-flex align-items-end mb-3">
+                            <div class="col-lg-4 col-md-4 col-sm-6 d-flex align-items-center mb-3">
                                 <input type="radio" name="position_' . $candidate_position . '" value="' . $candidate_id . '" id="po_' . $candidate_id . '" />
                                 <label class="form-check-label" for="po_' . $candidate_id . '">
                                     <img src="../../candidates-img/' . $img_name . '" alt="Profile" class="form-check-input mx-2" id=" ' . $candidate_id . ' " style="width: 120px; height: 120px; border-radius: 50%; cursor: pointer;" />
