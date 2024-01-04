@@ -19,6 +19,32 @@ if ($_SESSION['id']) {
         <link href="../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="../../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
         <link href="../../assets/css/style.css" rel="stylesheet">
+
+        <style>
+            input[type="radio"] {
+                display: none;
+            }
+
+            input[type="radio"]+label {
+                display: inline-block;
+                padding: 15px;
+                text-align: center;
+                text-decoration: none;
+                font-size: 16px;
+                border: none;
+                border-radius: 30px;
+                cursor: pointer;
+                color: #fff;
+                background: none;
+                background-size: 200% 100%;
+                transition: background-position 0.5s ease-in-out;
+            }
+
+            input[type="radio"]:checked+label {
+                background: linear-gradient(to bottom, #346b00 0%, #00196b 100%);
+                color: white;
+            }
+        </style>
     </head>
 
     <body>
@@ -91,7 +117,7 @@ if ($_SESSION['id']) {
                             $img_name = $row['img_name'];
                             echo '
                             <div class="col-lg-3 d-flex align-items-end mb-3">
-                                <input type="radio" name="position_' . $candidate_position . '" value="' . $candidate_id . '" id="pres_' . $candidate_id . '" required />
+                                <input type="radio" name="position_' . $candidate_position . '" value="' . $candidate_id . '" id="pres_' . $candidate_id . '" />
                                 <label class="form-check-label" for="pres_' . $candidate_id . '">
                                     <img src="../../candidates-img/' . $img_name . '" alt="Profile" class="form-check-input mx-2" id=" ' . $candidate_id . ' " style="width: 120px; height: 120px; border-radius: 50%; cursor: pointer;" />
                                 </label>
@@ -125,7 +151,7 @@ if ($_SESSION['id']) {
                             $img_name = $row['img_name'];
                             echo '
                             <div class="col-lg-3 d-flex align-items-end mb-3">
-                                <input type="radio" name="position_' . $candidate_position . '" value="' . $candidate_id . '" id="vpres_' . $candidate_id . '" required />
+                                <input type="radio" name="position_' . $candidate_position . '" value="' . $candidate_id . '" id="vpres_' . $candidate_id . '" />
                                 <label class="form-check-label" for="vpres_' . $candidate_id . '">
                                     <img src="../../candidates-img/' . $img_name . '" alt="Profile" class="form-check-input mx-2" id=" ' . $candidate_id . ' " style="width: 120px; height: 120px; border-radius: 50%; cursor: pointer;" />
                                 </label>
@@ -159,7 +185,7 @@ if ($_SESSION['id']) {
                             $img_name = $row['img_name'];
                             echo '
                             <div class="col-lg-3 d-flex align-items-end mb-3">
-                                <input type="radio" name="position_' . $candidate_position . '" value="' . $candidate_id . '" id="secretary_' . $candidate_id . '" required />
+                                <input type="radio" name="position_' . $candidate_position . '" value="' . $candidate_id . '" id="secretary_' . $candidate_id . '" />
                                 <label class="form-check-label" for="secretary_' . $candidate_id . '">
                                     <img src="../../candidates-img/' . $img_name . '" alt="Profile" class="form-check-input mx-2" id=" ' . $candidate_id . ' " style="width: 120px; height: 120px; border-radius: 50%; cursor: pointer;" />
                                 </label>
@@ -193,7 +219,7 @@ if ($_SESSION['id']) {
                             $img_name = $row['img_name'];
                             echo '
                             <div class="col-lg-3 d-flex align-items-end mb-3">
-                                <input type="radio" name="position_' . $candidate_position . '" value="' . $candidate_id . '" id="treasurer_' . $candidate_id . '" required />
+                                <input type="radio" name="position_' . $candidate_position . '" value="' . $candidate_id . '" id="treasurer_' . $candidate_id . '" />
                                 <label class="form-check-label" for="treasurer_' . $candidate_id . '">
                                     <img src="../../candidates-img/' . $img_name . '" alt="Profile" class="form-check-input mx-2" id=" ' . $candidate_id . ' " style="width: 120px; height: 120px; border-radius: 50%; cursor: pointer;" />
                                 </label>
@@ -227,7 +253,7 @@ if ($_SESSION['id']) {
                             $img_name = $row['img_name'];
                             echo '
                             <div class="col-lg-3 d-flex align-items-end mb-3">
-                                <input type="radio" name="position_' . $candidate_position . '" value="' . $candidate_id . '" id="auditor_' . $candidate_id . '" required />
+                                <input type="radio" name="position_' . $candidate_position . '" value="' . $candidate_id . '" id="auditor_' . $candidate_id . '" />
                                 <label class="form-check-label" for="auditor_' . $candidate_id . '">
                                     <img src="../../candidates-img/' . $img_name . '" alt="Profile" class="form-check-input mx-2" id=" ' . $candidate_id . ' " style="width: 120px; height: 120px; border-radius: 50%; cursor: pointer;" />
                                 </label>
@@ -261,7 +287,7 @@ if ($_SESSION['id']) {
                             $img_name = $row['img_name'];
                             echo '
                             <div class="col-lg-3 d-flex align-items-end mb-3">
-                                <input type="radio" name="position_' . $candidate_position . '" value="' . $candidate_id . '" id="pio_' . $candidate_id . '" required />
+                                <input type="radio" name="position_' . $candidate_position . '" value="' . $candidate_id . '" id="pio_' . $candidate_id . '" />
                                 <label class="form-check-label" for="pio_' . $candidate_id . '">
                                     <img src="../../candidates-img/' . $img_name . '" alt="Profile" class="form-check-input mx-2" id=" ' . $candidate_id . ' " style="width: 120px; height: 120px; border-radius: 50%; cursor: pointer;" />
                                 </label>
@@ -295,7 +321,7 @@ if ($_SESSION['id']) {
                             $img_name = $row['img_name'];
                             echo '
                             <div class="col-lg-3 d-flex align-items-end mb-3">
-                                <input type="radio" name="position_' . $candidate_position . '" value="' . $candidate_id . '" id="po_' . $candidate_id . '" required />
+                                <input type="radio" name="position_' . $candidate_position . '" value="' . $candidate_id . '" id="po_' . $candidate_id . '" />
                                 <label class="form-check-label" for="po_' . $candidate_id . '">
                                     <img src="../../candidates-img/' . $img_name . '" alt="Profile" class="form-check-input mx-2" id=" ' . $candidate_id . ' " style="width: 120px; height: 120px; border-radius: 50%; cursor: pointer;" />
                                 </label>
@@ -324,22 +350,26 @@ if ($_SESSION['id']) {
 
                     <div class="modal fade" id="submitModal" tabindex="-1" aria-labelledby="submitModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
-                            <div class="modal-content p-1">
+                            <div class="modal-content p-1" >
                                 <div class="modal-header">
                                     <h1 class="modal-title fs-5" id="submitModalLabel">Voting Confirmation</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <a href="candidates.php">
+                                        <button type="button" class="btn-close"></button>
+                                    </a>
                                 </div>
-                                <div class="modal-body">
-                                    <p>President: <span id="selectedPresident">?</span></p>
+                                <div class="modal-body" id="modal-content">
+                                    <!-- <p>President: <span id="selectedPresident">?</span></p>
                                     <p>Vice President: <span id="selectedVicePresident">?</span></p>
                                     <p>Secretary: <span id="selectedSecretary">?</span></p>
                                     <p>Treasurer: <span id="selectedTreasurer">?</span></p>
                                     <p>Auditor: <span id="selectedAuditor">?</span></p>
                                     <p>Pio: <span id="selectedPio">?</span></p>
-                                    <p>Protocol Officer: <span id="selectedProtocolOfficer">?</span></p>
+                                    <p>Protocol Officer: <span id="selectedProtocolOfficer">?</span></p> -->
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+                                    <a href="candidates.php">
+                                        <button type="button" class="btn btn-outline-danger">Close</button>
+                                    </a>
                                     <button type="submit" class="btn btn-success">Confirm &nbsp;<i class="bi bi-check2-circle"></i></button>
                                 </div>
                             </div>
@@ -365,12 +395,7 @@ if ($_SESSION['id']) {
                         const selectedImage = document.getElementById(this.id);
                         const position = this.name.replace('position_', ''); // Extract position from input name
 
-                        if (previousSelectedImage && this.name === previousSelectedImage.name) {
-                            previousSelectedImage.style.border = 'none';
-                        }
-
                         if (selectedImage) {
-                            selectedImage.style.border = '5px solid #198754';
                             previousSelectedImage = selectedImage;
 
                             // Update modal content with the selected candidate's name
@@ -386,15 +411,34 @@ if ($_SESSION['id']) {
                 const submitButton = document.getElementById('submit');
                 if (submitButton) {
                     submitButton.addEventListener('click', function () {
-                        // Update modal content with the final selected candidates
-                        document.getElementById('selectedPresident').textContent = document.querySelector('input[name="position_1"]:checked + label + span').textContent;
-                        document.getElementById('selectedVicePresident').textContent = document.querySelector('input[name="position_2"]:checked + label + span').textContent;
-                        document.getElementById('selectedSecretary').textContent = document.querySelector('input[name="position_3"]:checked + label + span').textContent;
-                        document.getElementById('selectedTreasurer').textContent = document.querySelector('input[name="position_4"]:checked + label + span').textContent;
-                        document.getElementById('selectedAuditor').textContent = document.querySelector('input[name="position_5"]:checked + label + span').textContent;
-                        document.getElementById('selectedPio').textContent = document.querySelector('input[name="position_6"]:checked + label + span').textContent;
-                        document.getElementById('selectedProtocolOfficer').textContent = document.querySelector('input[name="position_7"]:checked + label + span').textContent;
+                        updateModalContent('1', 'President');
+                        updateModalContent('2', 'VicePresident');
+                        updateModalContent('3', 'Secretary');
+                        updateModalContent('4', 'Treasurer');
+                        updateModalContent('5', 'Auditor');
+                        updateModalContent('6', 'Pio');
+                        updateModalContent('7', 'Protocol Officer');
+
+                        // Show the modal only if at least one position is selected
+                        const modalContent = document.getElementById('modal-content').innerHTML;
+                        const modalButton = document.getElementById('submit');
+
+                        if (modalContent.trim() !== '') {
+                            modalButton.style.display = 'block';
+                        } else {
+                            modalButton.style.display = 'none';
+                            alert('Please select at least one candidate.');
+                        }
                     });
+                }
+
+                function updateModalContent(positionNumber, positionName) {
+                    const selectedCandidate = document.querySelector(`input[name="position_${positionNumber}"]:checked + label + span`);
+                    const modalContent = document.getElementById('modal-content');
+
+                    if (selectedCandidate) {
+                        modalContent.innerHTML += `<p>${positionName}: <span>${selectedCandidate.textContent}</span></p>`;
+                    }
                 }
             });
         </script>
