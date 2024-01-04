@@ -338,15 +338,14 @@ if ($_SESSION['id']) {
                     $stmt->execute();
                     $result = $stmt->get_result();
                     if (mysqli_num_rows($result) > 0) {
-                        $btn_indicator = "block";
-                    } else {
-                        $btn_indicator = "none";
+                        echo '
+                        <button class="btn btn-success" id="submit" type="button" data-bs-toggle="modal" data-bs-target="#submitModal">
+                            Submit Vote &nbsp;<i class="bi bi-skip-forward"></i>
+                        </button>
+                        ';
                     }
                     
                     ?>
-                    <button class="btn btn-success" style="display: <?php echo $btn_indicator ?>;" id="submit" type="button" data-bs-toggle="modal" data-bs-target="#submitModal">
-                        Submit Vote &nbsp;<i class="bi bi-skip-forward"></i>
-                    </button>
 
                     <div class="modal fade" id="submitModal" tabindex="-1" aria-labelledby="submitModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -358,13 +357,6 @@ if ($_SESSION['id']) {
                                     </a>
                                 </div>
                                 <div class="modal-body" id="modal-content">
-                                    <!-- <p>President: <span id="selectedPresident">?</span></p>
-                                    <p>Vice President: <span id="selectedVicePresident">?</span></p>
-                                    <p>Secretary: <span id="selectedSecretary">?</span></p>
-                                    <p>Treasurer: <span id="selectedTreasurer">?</span></p>
-                                    <p>Auditor: <span id="selectedAuditor">?</span></p>
-                                    <p>Pio: <span id="selectedPio">?</span></p>
-                                    <p>Protocol Officer: <span id="selectedProtocolOfficer">?</span></p> -->
                                 </div>
                                 <div class="modal-footer">
                                     <a href="candidates.php">
