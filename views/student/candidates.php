@@ -412,7 +412,7 @@ if ($_SESSION['id']) {
                 if (submitButton) {
                     submitButton.addEventListener('click', function () {
                         updateModalContent('1', 'President');
-                        updateModalContent('2', 'VicePresident');
+                        updateModalContent('2', 'Vice President');
                         updateModalContent('3', 'Secretary');
                         updateModalContent('4', 'Treasurer');
                         updateModalContent('5', 'Auditor');

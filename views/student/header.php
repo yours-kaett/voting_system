@@ -15,7 +15,7 @@ $img_name = $row['img_name'];
     <div class="d-flex align-items-center justify-content-between">
         <a href="candidates.php" class="logo d-flex align-items-center">
             <img src="../../assets/img/logo.png" alt="">
-            <span>&nbsp;Voting System</span>
+            <span class="d-block d-none">&nbsp;Voting System</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div>
